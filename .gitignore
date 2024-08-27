@@ -8,4 +8,6 @@
 /var/
 /vendor/
 compose.override.yaml
+.DS_Store
+.idea
 ###< symfony/framework-bundle ###
