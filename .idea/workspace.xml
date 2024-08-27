@@ -5,20 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64ddc845-9133-4460-a653-77a7ef2cfade" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/68b02d4f-872a-4978-be3f-7fd0e5312d14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/68b02d4f-872a-4978-be3f-7fd0e5312d14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/68b02d4f-872a-4978-be3f-7fd0e5312d14/storage_v2/_src_/database/dev.FYQBAA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/68b02d4f-872a-4978-be3f-7fd0e5312d14/storage_v2/_src_/database/dev.FYQBAA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bridge/Symfony/Controller/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Doctrine/Repository/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20240827012254.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20240827041716.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20240827043725.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20240827044634.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application/Service/CreateQuestionaryService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application/Service/CreateQuestionaryService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application/Service/FillUpQuestionaryWithAnswers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application/Service/FillUpQuestionaryClientAnswers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application/Service/FillUpQuestionaryWithAnswersService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application/Service/FillUpQuestionaryClientAnswersService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application/Service/GetQuestionaryQuestionsService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application/Service/GetQuestionaryQuestionsService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bridge/Symfony/Controller/QuestionaryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bridge/Symfony/Controller/QuestionaryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Answer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Answer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Questionary/Questionary.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Questionary/Questionary.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Questionary/QuestionaryAnswer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Questionary/QuestionaryAnswer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Questionary/QuestionaryQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Questionary/QuestionaryQuestionWithAnswer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Doctrine/Repository/OrmQuestionaryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Doctrine/Repository/OrmQuestionaryRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Doctrine/Type/QuestionAnswerCollectionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Doctrine/Type/QuestionWithAnswerCollectionType.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,27 +96,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724623644057</updated>
-      <workItem from="1724623645426" duration="38402000" />
+      <workItem from="1724623645426" duration="40498000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php-line-method">
-          <url>file://$PROJECT_DIR$/src/Infrastructure/Doctrine/Repository/OrmQuestionaryRepository.php</url>
-          <line>22</line>
-          <properties>
-            <option name="className" value="\App\Infrastructure\Doctrine\Repository\OrmQuestionaryRepository" />
-            <option name="methodName" value="getByUuid" />
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

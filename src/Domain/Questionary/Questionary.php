@@ -3,7 +3,7 @@
 namespace App\Domain\Questionary;
 
 
-use App\Infrastructure\Doctrine\Type\QuestionAnswerCollectionType;
+use App\Infrastructure\Doctrine\Type\QuestionWithAnswerCollectionType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,56 +24,56 @@ final class Questionary
     #[ORM\Column(nullable: false, unique: false)]
     private string $uuid;
 
-    #[ORM\Column(type: QuestionAnswerCollectionType::QUESTION_ANSWER_COLLECTION)]
-    private Collection $questions;
+    #[ORM\Column(type: QuestionWithAnswerCollectionType::QUESTION_WITH_ANSWER_COLLECTION_TYPE)]
+    private Collection $multipleChoiceQuestions;
 
-    #[ORM\Column(type: QuestionAnswerCollectionType::QUESTION_ANSWER_COLLECTION)]
-    private Collection $answers;
+    #[ORM\Column(type: QuestionWithAnswerCollectionType::QUESTION_WITH_ANSWER_COLLECTION_TYPE)]
+    private Collection $questionsWithAnswersUser;
 
     public function __construct(UuidInterface $uuid, string $fullName)
     {
         $this->fullName = $fullName;
         $this->uuid = $uuid;
-        $this->questions = new ArrayCollection();
-        $this->answers = new ArrayCollection();
+        $this->multipleChoiceQuestions = new ArrayCollection();
+        $this->questionsWithAnswersUser = new ArrayCollection();
     }
 
-    public function addQuestion(QuestionaryQuestion $question): void
+    public function addMultipleChoiceQuestion(QuestionaryQuestionWithAnswer $multipleChoiceQuestion): void
     {
-        if (!$this->questions->contains($question)) {
-            $this->questions->add($question);
-            $this->questions = new ArrayCollection($this->questions->toArray());
+        if (!$this->multipleChoiceQuestions->contains($multipleChoiceQuestion)) {
+            $this->multipleChoiceQuestions->add($multipleChoiceQuestion);
+            $this->multipleChoiceQuestions = new ArrayCollection($this->multipleChoiceQuestions->toArray());
         }
     }
 
-    public function addAnswer(QuestionaryQuestion $answer): void
+    public function addQuestionWithAnswersUser(QuestionaryQuestionWithAnswer $answer): void
     {
-        if (!$this->answers->contains($answer)) {
-            $this->answers->add($answer);
-            $this->answers = new ArrayCollection($this->answers->toArray());
+        if (!$this->questionsWithAnswersUser->contains($answer)) {
+            $this->questionsWithAnswersUser->add($answer);
+            $this->questionsWithAnswersUser = new ArrayCollection($this->questionsWithAnswersUser->toArray());
         }
     }
 
 
-    public function questions(): Collection
+    public function multipleChoiceQuestions(): Collection
     {
-        return $this->questions;
+        return $this->multipleChoiceQuestions;
     }
 
-    public function answers(): Collection
+    public function questionsWithAnswersUser(): Collection
     {
-        return $this->answers;
+        return $this->questionsWithAnswersUser;
     }
 
-    public function findQuestionById(int $id): ?QuestionaryQuestion
+    public function findQuestionById(int $id): ?QuestionaryQuestionWithAnswer
     {
-        return $this->questions->filter(fn(QuestionaryQuestion $question) => $question->id() === $id)->first();
+        return $this->multipleChoiceQuestions->filter(fn(QuestionaryQuestionWithAnswer $question) => $question->id() === $id)->first();
     }
 
-    /** @return QuestionaryQuestion[] */
+    /** @return QuestionaryQuestionWithAnswer[] */
     public function findQuestionWithIncorrectAnswers(): array
     {
-        return $this->answers->filter(function (QuestionaryQuestion $question): bool {
+        return $this->questionsWithAnswersUser->filter(function (QuestionaryQuestionWithAnswer $question): bool {
             /** @var QuestionaryAnswer $answer */
             foreach ($question->answers() as $answer) {
                 if (!$answer->isCorrect()) {
@@ -84,10 +84,10 @@ final class Questionary
         })->toArray();
     }
 
-    /** @return QuestionaryQuestion[] */
+    /** @return QuestionaryQuestionWithAnswer[] */
     public function findQuestionWithCorrectAnswers(): array
     {
-        return $this->answers->filter(function (QuestionaryQuestion $question): bool {
+        return $this->questionsWithAnswersUser->filter(function (QuestionaryQuestionWithAnswer $question): bool {
             /** @var QuestionaryAnswer $answer */
             foreach ($question->answers() as $answer) {
                 if (!$answer->isCorrect()) {

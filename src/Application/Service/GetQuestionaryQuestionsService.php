@@ -5,7 +5,7 @@ namespace App\Application\Service;
 use App\Application\Dto\AnswerViewDto;
 use App\Application\Dto\QuestionViewDto;
 use App\Domain\Questionary\QuestionaryAnswer;
-use App\Domain\Questionary\QuestionaryQuestion;
+use App\Domain\Questionary\QuestionaryQuestionWithAnswer;
 use App\Domain\QuestionaryRepository;
 
 final readonly class GetQuestionaryQuestionsService
@@ -21,8 +21,8 @@ final readonly class GetQuestionaryQuestionsService
         $questionary = $this->questionaries->getByUuid($query->questionaryUuid());
 
         $questionViews = [];
-        /** @var QuestionaryQuestion $question */
-        foreach ($questionary->questions() as $question) {
+        /** @var QuestionaryQuestionWithAnswer $question */
+        foreach ($questionary->multipleChoiceQuestions() as $question) {
             $questionViewDto = new QuestionViewDto();
             $questionViewDto->id = $question->id();
             $questionViewDto->title = $question->title();

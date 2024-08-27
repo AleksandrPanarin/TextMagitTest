@@ -8,7 +8,8 @@ final class QuestionaryAnswer
     private string $title;
     private bool $isCorrect;
 
-    public function __construct(int $id, string $title, bool $isCorrect){
+    public function __construct(int $id, string $title, bool $isCorrect)
+    {
 
         $this->id = $id;
         $this->title = $title;

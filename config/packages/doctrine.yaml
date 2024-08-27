@@ -9,7 +9,7 @@ doctrine:
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
         types:
-            question_answer_collection_type: App\Infrastructure\Doctrine\Type\QuestionAnswerCollectionType
+            question_with_answer_collection_type: App\Infrastructure\Doctrine\Type\QuestionWithAnswerCollectionType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true

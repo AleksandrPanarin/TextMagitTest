@@ -2,14 +2,11 @@
 
 namespace App\Application\Service;
 
-use App\Domain\Questionary\QuestionaryAnswer;
-use App\Domain\Questionary\QuestionaryQuestion;
+use App\Domain\Questionary\QuestionaryQuestionWithAnswer;
 use App\Domain\QuestionaryRepository;
-use App\Domain\QuestionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use RuntimeException;
 
-final readonly class FillUpQuestionaryWithAnswersService
+final readonly class FillUpQuestionaryClientAnswersService
 {
     public function __construct(
         private QuestionaryRepository $questionaries,
@@ -17,7 +14,7 @@ final readonly class FillUpQuestionaryWithAnswersService
     {
     }
 
-    public function execute(FillUpQuestionaryWithAnswers $command): void
+    public function execute(FillUpQuestionaryClientAnswers $command): void
     {
         $answers = $command->answers();
         if (empty($answers)) {
@@ -26,21 +23,21 @@ final readonly class FillUpQuestionaryWithAnswersService
 
         $questionary = $this->questionaries->getByUuid($command->questionaryUuid());
 
-        if(!$questionary->answers()->isEmpty()){
+        if(!$questionary->questionsWithAnswersUser()->isEmpty()){
             throw new RuntimeException('Questionary already passed.');
         }
 
-        /** @var QuestionaryQuestion $question */
-        foreach ($questionary->questions() as $question) {
-            if (!array_key_exists($question->id(), $answers) || empty($answers[$question->id()])) {
+        /** @var QuestionaryQuestionWithAnswer $questionWithAnswer */
+        foreach ($questionary->multipleChoiceQuestions() as $questionWithAnswer) {
+            if (!array_key_exists($questionWithAnswer->id(), $answers) || empty($answers[$questionWithAnswer->id()])) {
                 throw new RuntimeException('Fill up full questionary.');
             }
         }
 
         foreach ($command->answers() as $questionId => $answerIds) {
-            $question = clone $questionary->findQuestionById($questionId);
-            $question->removeUnmarkedAnswersByIds($answerIds);
-            $questionary->addAnswer($question);
+            $questionWithAnswer = clone $questionary->findQuestionById($questionId);
+            $questionWithAnswer->removeUnmarkedAnswersByIds($answerIds);
+            $questionary->addQuestionWithAnswersUser($questionWithAnswer);
         }
 
         $this->questionaries->update($questionary);

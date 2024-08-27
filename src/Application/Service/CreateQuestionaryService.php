@@ -2,10 +2,11 @@
 
 namespace App\Application\Service;
 
+use App\Domain\Answer;
 use App\Domain\Question;
 use App\Domain\Questionary\Questionary;
 use App\Domain\Questionary\QuestionaryAnswer;
-use App\Domain\Questionary\QuestionaryQuestion;
+use App\Domain\Questionary\QuestionaryQuestionWithAnswer;
 use App\Domain\QuestionaryRepository;
 use App\Domain\QuestionRepository;
 use Ramsey\Uuid\Uuid;
@@ -30,12 +31,12 @@ final readonly class CreateQuestionaryService
 
         $questionaryUuid = Uuid::uuid4();
         $this->questionaries->add(new Questionary($questionaryUuid, $command->fullName()));
-        $this->fillUpQuestionnaireWithQuestions($questionaryUuid);
+        $this->fillUpQuestionnaireMultipleChoiceQuestion($questionaryUuid);
 
         return $questionaryUuid->toString();
     }
 
-    private function fillUpQuestionnaireWithQuestions(string $uuid): void
+    private function fillUpQuestionnaireMultipleChoiceQuestion(string $uuid): void
     {
         $questionary = $this->questionaries->getByUuid($uuid);
 
@@ -44,14 +45,15 @@ final readonly class CreateQuestionaryService
 
         /** @var Question $question */
         foreach ($questions as $question) {
-            $questionaryQuestion = new QuestionaryQuestion($question->id(), $question->title());
+            $questionWithAnswer = new QuestionaryQuestionWithAnswer($question->id(), $question->title());
 
+            /** @var Answer $answer */
             foreach ($question->shuffleAnswers() as $answer) {
-                $questionaryQuestion->addAnswer(
+                $questionWithAnswer->addAnswer(
                     new QuestionaryAnswer($answer->id(), $answer->title(), $answer->isCorrect())
                 );
             }
-            $questionary->addQuestion($questionaryQuestion);
+            $questionary->addMultipleChoiceQuestion($questionWithAnswer);
         }
         $this->questionaries->update($questionary);
     }

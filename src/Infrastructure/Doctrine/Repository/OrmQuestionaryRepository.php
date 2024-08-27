@@ -8,7 +8,6 @@ use App\Domain\QuestionaryRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use DomainException;
-use Ramsey\Uuid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Question>

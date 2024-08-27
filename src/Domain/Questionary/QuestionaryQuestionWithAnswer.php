@@ -2,11 +2,10 @@
 
 namespace App\Domain\Questionary;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-final class QuestionaryQuestion
+final class QuestionaryQuestionWithAnswer
 {
     private int $id;
 
@@ -43,13 +42,13 @@ final class QuestionaryQuestion
         return $this->answers;
     }
 
+    public function removeUnmarkedAnswersByIds(array $answerIds): void
+    {
+        $this->answers = new ArrayCollection($this->findAnswersByIds($answerIds));
+    }
+
     private function findAnswersByIds(array $answerIds): array
     {
         return $this->answers->filter(fn(QuestionaryAnswer $answer) => in_array($answer->id(), $answerIds))->toArray();
-    }
-
-    public function removeUnmarkedAnswersByIds(array $answerIds)
-    {
-        $this->answers = new ArrayCollection($this->findAnswersByIds($answerIds));
     }
 }

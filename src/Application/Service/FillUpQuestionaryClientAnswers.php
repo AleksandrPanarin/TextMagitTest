@@ -2,10 +2,9 @@
 
 namespace App\Application\Service;
 
-
-final class FillUpQuestionaryWithAnswers
+final class FillUpQuestionaryClientAnswers
 {
-    private string $questionaryUuid;
+    private string $questionaryUuid = '';
 
     private array $answers = [];
 

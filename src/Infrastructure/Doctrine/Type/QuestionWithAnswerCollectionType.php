@@ -3,16 +3,16 @@
 namespace App\Infrastructure\Doctrine\Type;
 
 use App\Domain\Questionary\QuestionaryAnswer;
-use App\Domain\Questionary\QuestionaryQuestion;
+use App\Domain\Questionary\QuestionaryQuestionWithAnswer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-final class QuestionAnswerCollectionType extends Type
+final class QuestionWithAnswerCollectionType extends Type
 {
-    public const string QUESTION_ANSWER_COLLECTION = 'question_answer_collection_type';
+    public const string QUESTION_WITH_ANSWER_COLLECTION_TYPE = 'question_with_answer_collection_type';
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
@@ -29,7 +29,7 @@ final class QuestionAnswerCollectionType extends Type
         }
 
         $data = [];
-        /** @var QuestionaryQuestion $question */
+        /** @var QuestionaryQuestionWithAnswer $question */
         foreach ($value->toArray() as $question) {
             $answerData = [];
             /** @var QuestionaryAnswer $answer */
@@ -65,7 +65,7 @@ final class QuestionAnswerCollectionType extends Type
 
         $questions = [];
         foreach ($data as $questionData) {
-            $question = new QuestionaryQuestion($questionData['id'], $questionData['title']);
+            $question = new QuestionaryQuestionWithAnswer($questionData['id'], $questionData['title']);
             foreach ($questionData['answers'] as $answerData) {
                 $question->addAnswer(new QuestionaryAnswer($answerData['id'], $answerData['title'], $answerData['is_correct']));
             }
@@ -77,7 +77,7 @@ final class QuestionAnswerCollectionType extends Type
 
     public function getName(): string
     {
-        return self::QUESTION_ANSWER_COLLECTION;
+        return self::QUESTION_WITH_ANSWER_COLLECTION_TYPE;
     }
 
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool

@@ -4,8 +4,8 @@ namespace App\Bridge\Symfony\Controller;
 
 use App\Application\Service\CreateQuestionary;
 use App\Application\Service\CreateQuestionaryService;
-use App\Application\Service\FillUpQuestionaryWithAnswers;
-use App\Application\Service\FillUpQuestionaryWithAnswersService;
+use App\Application\Service\FillUpQuestionaryClientAnswers;
+use App\Application\Service\FillUpQuestionaryClientAnswersService;
 use App\Application\Service\GetQuestionary;
 use App\Application\Service\GetQuestionaryQuestions;
 use App\Application\Service\GetQuestionaryQuestionsService;
@@ -20,10 +20,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class QuestionaryController extends AbstractController
 {
     public function __construct(
-        private readonly GetQuestionaryQuestionsService      $getQuestionaryQuestionsService,
-        private readonly CreateQuestionaryService            $createQuestionaryService,
-        private readonly FillUpQuestionaryWithAnswersService $fillUpQuestionaryService,
-        private readonly GetQuestionaryService               $getQuestionaryService
+        private readonly GetQuestionaryQuestionsService        $getQuestionaryQuestionsService,
+        private readonly CreateQuestionaryService              $createQuestionaryService,
+        private readonly FillUpQuestionaryClientAnswersService $fillUpQuestionaryClientAnswersService,
+        private readonly GetQuestionaryService                 $getQuestionaryService
     )
     {
 
@@ -66,7 +66,7 @@ final class QuestionaryController extends AbstractController
         unset($request['questionaryUuid']);
 
         try {
-            $this->fillUpQuestionaryService->execute(new FillUpQuestionaryWithAnswers($questionaryUuid, $request));
+            $this->fillUpQuestionaryClientAnswersService->execute(new FillUpQuestionaryClientAnswers($questionaryUuid, $request));
             $questionary = $this->getQuestionaryService->execute(new GetQuestionary($questionaryUuid));
 
         } catch (RuntimeException|DomainException $e) {
