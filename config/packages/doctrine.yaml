@@ -8,6 +8,8 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        types:
+            question_answer_collection_type: App\Infrastructure\Doctrine\Type\QuestionAnswerCollectionType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -19,8 +21,8 @@ doctrine:
             App:
                 type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
+                dir: '%kernel.project_dir%/src/Domain'
+                prefix: 'App\Domain'
                 alias: App
         controller_resolver:
             auto_mapping: false

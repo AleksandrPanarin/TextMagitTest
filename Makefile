@@ -10,7 +10,7 @@ PHONY: help
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-init: down build install up console
+init: down build install up db-wait db-migrate fixtures-load console
 
 build: ## Build services.
 	${DC} build $(c)
@@ -39,4 +39,7 @@ db-migrate: ## Run migrations
 	$(DC_RUN) php bin/console doctrine:migrations:migrate -n
 
 db-wait: ## Wait for database to start
-	$(DC_RUN) /bin/bash -c "until nc -z postgres 5432; do echo 'Waiting for PostgreSQL to start...'; sleep 1; done"
+	$(DC_RUN) /bin/bash -c "until nc -z database 5432; do echo 'Waiting for PostgreSQL to start...'; sleep 1; done"
+
+fixtures-load:
+	$(DC_RUN) php bin/console doctrine:fixtures:load -n

@@ -20,5 +20,11 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Application\Service\:
+        resource: '../src/Application/Service/*'
+
+    App\Domain\QuestionRepository: '@App\Infrastructure\Doctrine\Repository\OrmQuestionRepository'
+    App\Domain\QuestionaryRepository: '@App\Infrastructure\Doctrine\Repository\OrmQuestionaryRepository'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

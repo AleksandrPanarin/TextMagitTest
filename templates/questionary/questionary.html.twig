@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuestionaryController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Hello This is questionary: ✅</h1>
+        {% for message in app.flashes('error') %}
+            <div style="color: red">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <form action="{{ path('fill_up_questionary') }}" method="POST">
+            <input type="hidden" name="questionaryUuid" value="{{ questionaryUuid }}">
+            {% for question in questions %}
+                <h2>{{ question.title }}</h2>
+                {% for answer in question.answers %}
+                    <label>
+                        <input type="checkbox" name="{{ question.id }}[]" value="{{ answer.id }}">
+                        {{ answer.title }}
+                    </label><br>
+                {% endfor %}
+            {% endfor %}
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}

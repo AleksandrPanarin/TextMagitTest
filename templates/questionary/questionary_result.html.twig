@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuestionaryController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .list-wrapper {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Questionary result: ✅</h1>
+        <div class="container">
+            <div class="list-wrapper">
+                <h2>Correct questions</h2>
+                <ul>
+                    {% for question in questionary.questionsWithCorrectAnswers %}
+                    <li>{{ question.title }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="list-wrapper">
+                <h2>Incorrect questions</h2>
+                <ul>
+                    {% for question in questionary.questionsWithIncorrectAnswers %}
+                        <li>{{ question.title }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
